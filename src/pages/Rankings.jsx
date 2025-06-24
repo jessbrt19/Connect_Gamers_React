@@ -5,10 +5,10 @@ const Rankings = () => {
   const [jogadorAtivo, setJogadorAtivo] = useState(null);
 
   const listaJogadores = [
-    { nome: "Ana", pontos: 1200, competitivo: true },
-    { nome: "Carlos", pontos: 850, competitivo: false },
-    { nome: "João", pontos: 950, competitivo: true },
-    { nome: "Lúcia", pontos: 700, competitivo: false },
+    { nome: "Ana", pontos: 1200, competitivo: true, kd: 1.5 },
+    { nome: "Carlos", pontos: 850, competitivo: false, kd: 0.9 },
+    { nome: "João", pontos: 950, competitivo: true, kd: 1.2 },
+    { nome: "Lúcia", pontos: 700, competitivo: false, kd: 0.8 },
   ];
 
   const jogadoresExibidos = mostrarCompetitivos
@@ -21,12 +21,11 @@ const Rankings = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      {/* Título principal */}
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
         Ranking de Jogadores
       </h1>
 
-      {/* Botão de exibir competitivos */}
+      {/* Botão de filtro */}
       <div className="flex justify-center mb-6">
         <button
           onClick={() => setMostrarCompetitivos(prev => !prev)}
@@ -57,8 +56,20 @@ const Rankings = () => {
             </button>
 
             {jogadorAtivo === index && (
-              <div className="mt-1 text-gray-600 text-sm">
-                Pontuação: <span className="font-semibold">{jogador.pontos}</span>
+              <div className="mt-3 text-gray-700 text-sm space-y-2">
+                <p><strong>Pontuação:</strong> {jogador.pontos}</p>
+                <p><strong>K/D Ratio:</strong> {jogador.kd}</p>
+
+                {/* Gráfico simples */}
+                <div className="space-y-1">
+                  <p className="text-xs text-gray-500">Desempenho Visual (baseado na pontuação)</p>
+                  <div className="w-full bg-gray-300 h-4 rounded overflow-hidden">
+                    <div
+                      className="h-full bg-indigo-600 transition-all duration-500"
+                      style={{ width: `${(jogador.pontos / 1500) * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
               </div>
             )}
           </li>
@@ -69,3 +80,4 @@ const Rankings = () => {
 };
 
 export default Rankings;
+
