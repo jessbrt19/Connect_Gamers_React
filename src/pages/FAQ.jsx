@@ -25,13 +25,13 @@ const FAQ = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      {/* Container do Feedback - Tamanho médio */}
-      <div className="w-full max-w-md p-6 rounded-lg">
+    <div className="min-h-screen flex items-center justify-center p-4">
+      {/* Container do Feedback - Centralizado e com tamanho médio */}
+      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-bold mb-4 text-center text-black">
           Seu Feedback é importante para nós!
         </h2>
-        
+
         <form onSubmit={handleFeedbackSubmit} className="space-y-4">
           <div className="text-center">
             <p className="mb-2 text-gray-700">Como você avalia sua experiência?</p>
