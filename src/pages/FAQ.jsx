@@ -26,21 +26,21 @@ const FAQ = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      {/* Container do Feedback - Tamanho original */}
-      <div className="w-full max-w-sm">
-        <h2 className="text-xl font-bold mb-4 text-center text-black">
+      {/* Container do Feedback - Tamanho reduzido */}
+      <div className="w-full max-w-xs bg-white p-6 rounded-lg shadow-md">
+        <h2 className="text-lg font-bold mb-3 text-center text-black">
           Seu Feedback é importante para nós!
         </h2>
         
-        <form onSubmit={handleFeedbackSubmit} className="space-y-4">
+        <form onSubmit={handleFeedbackSubmit} className="space-y-3">
           <div className="text-center">
-            <p className="mb-2 text-gray-700">Como você avalia sua experiência?</p>
-            <div className="flex justify-center space-x-1 mb-3">
+            <p className="mb-2 text-sm text-gray-700">Como você avalia sua experiência?</p>
+            <div className="flex justify-center space-x-1 mb-2">
               {[1, 2, 3, 4, 5].map((value) => (
                 <button
                   type="button"
                   key={value}
-                  className={`text-2xl cursor-pointer ${
+                  className={`text-xl cursor-pointer ${
                     (hoverRating || rating) >= value ? 'text-yellow-400' : 'text-gray-300'
                   }`}
                   onClick={() => handleRatingChange(value)}
@@ -54,16 +54,16 @@ const FAQ = () => {
           </div>
 
           <textarea 
-            className="w-full p-2 border border-gray-300 rounded focus:ring-pink-500 focus:border-pink-500"
+            className="w-full p-2 text-sm border border-gray-300 rounded focus:ring-pink-500 focus:border-pink-500"
             placeholder="Deixe seu comentário..."
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
-            rows={4}
+            rows={3}
           ></textarea>
 
           <button 
             type="submit" 
-            className="w-full bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded transition"
+            className="w-full bg-pink-500 hover:bg-pink-600 text-white py-1 px-4 rounded text-sm transition"
           >
             Enviar Feedback
           </button>
