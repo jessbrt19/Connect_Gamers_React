@@ -65,7 +65,7 @@ const FAQ = () => {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col ${darkTheme ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
+    <div className="min-h-screen flex flex-col bg-white">
       {/* Overlay */}
       <div 
         className={`fixed inset-0 bg-black bg-opacity-50 z-40 ${sidebarOpen ? 'block' : 'hidden'}`} 
@@ -119,7 +119,7 @@ const FAQ = () => {
       </div>
 
       {/* Navbar */}
-      <nav className={`fixed top-0 w-full p-2 z-30 ${darkTheme ? 'bg-gray-900' : 'bg-gray-100'}`}>
+      <nav className="fixed top-0 w-full p-2 z-30 bg-white shadow-sm">
         <div className="container-fluid flex justify-between items-center">
           <div className="flex items-center">
             <div className="cursor-pointer mr-4" onClick={toggleSidebar}>
@@ -127,9 +127,7 @@ const FAQ = () => {
             </div>
             <a className="navbar-brand" href="/">
               <img 
-                src={darkTheme ? 
-                  "../assets/IMAGENS/Connect_Gamers_logo_OFICIAL-removebg-preview.png" : 
-                  "../assets/IMAGENS/logo - tema claro.png"} 
+                src="../assets/IMAGENS/logo - tema claro.png" 
                 alt="logo" 
                 className="w-48 ml-4" 
               />
@@ -138,9 +136,7 @@ const FAQ = () => {
 
           <a href="/login" className="mr-4">
             <img 
-              src={darkTheme ? 
-                "../assets/IMAGENS/perfil.png" : 
-                "../assets/IMAGENS/perfil_preto.png"} 
+              src="../assets/IMAGENS/perfil_preto.png" 
               alt="Perfil" 
               className="w-10" 
             />
@@ -148,20 +144,20 @@ const FAQ = () => {
         </div>
       </nav>
 
-      {/* Conteúdo Principal */}
-      <main className="flex-grow pt-16 pb-16 flex justify-center items-center">
-        <div className={`p-8 rounded-lg shadow-lg bg-white w-full max-w-md mx-4`}>
-          <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Seu Feedback é importante para nós!</h2>
+      {/* Conteúdo Principal - Container Branco Grande */}
+      <main className="flex-grow pt-20 pb-16 flex justify-center items-start">
+        <div className="p-8 bg-white rounded-lg shadow-lg w-full max-w-4xl mx-4 my-8 border border-gray-100">
+          <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">Seu Feedback é importante para nós!</h2>
           
-          <form onSubmit={handleFeedbackSubmit} className="space-y-6">
+          <form onSubmit={handleFeedbackSubmit} className="space-y-8">
             <div className="text-center">
-              <p className="mb-3 text-gray-600">Como você avalia sua experiência?</p>
-              <div className="flex justify-center space-x-2 mb-4">
+              <p className="mb-4 text-lg text-gray-600">Como você avalia sua experiência?</p>
+              <div className="flex justify-center space-x-3 mb-4">
                 {[1, 2, 3, 4, 5].map((value) => (
                   <button
                     type="button"
                     key={value}
-                    className={`text-3xl cursor-pointer transition-colors ${
+                    className={`text-4xl cursor-pointer transition-colors ${
                       (hoverRating || rating) >= value ? 'text-yellow-400' : 'text-gray-300'
                     }`}
                     onClick={() => handleRatingChange(value)}
@@ -172,24 +168,24 @@ const FAQ = () => {
                   </button>
                 ))}
               </div>
-              <p className="text-sm text-gray-500">
+              <p className="text-md text-gray-500">
                 {rating === 0 ? 'Selecione uma nota' : `Você avaliou com ${rating} estrela${rating > 1 ? 's' : ''}`}
               </p>
             </div>
 
             <div>
               <textarea 
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-lg"
                 placeholder="Deixe seu Feedback aqui..."
                 value={feedback}
                 onChange={(e) => setFeedback(e.target.value)}
-                rows={5}
+                rows={6}
               ></textarea>
             </div>
 
             <button 
               type="submit" 
-              className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 px-4 rounded-lg transition-colors font-medium shadow-md"
+              className="w-full bg-pink-500 hover:bg-pink-600 text-white py-4 px-6 rounded-lg transition-colors font-medium shadow-md text-lg"
             >
               Enviar Feedback
             </button>
@@ -198,9 +194,9 @@ const FAQ = () => {
       </main>
 
       {/* Footer */}
-      <footer className={`py-4 text-center ${darkTheme ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-800'}`}>
-        <p>© 2025 Connect Gamers. Todos os direitos reservados.</p>
-        <p className="mt-1">Desenvolvido por: Ana Gonçalves, Jessica Brito, Mariana Albano, Neemias Silva, Vinícius Gonzales.</p>
+      <footer className="py-6 text-center bg-gray-50 text-gray-800 border-t">
+        <p className="text-lg">© 2025 Connect Gamers. Todos os direitos reservados.</p>
+        <p className="mt-2 text-md">Desenvolvido por: Ana Gonçalves, Jessica Brito, Mariana Albano, Neemias Silva, Vinícius Gonzales.</p>
       </footer>
 
       {/* Widget VLibras */}
