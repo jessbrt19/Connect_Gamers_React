@@ -66,7 +66,6 @@ const Profile = () => {
     setCurrentPassword("");
     setNewPassword("");
     setConfirmPassword("");
-
   };
 
   return (
@@ -74,8 +73,8 @@ const Profile = () => {
       className={`min-h-screen flex flex-col ${darkTheme ? 'text-white' : 'text-gray-900'}`}
       style={{
         backgroundImage: darkTheme
-          ? "url('/assets/IMAGENS/bg-dark.jpg')" // Caminho do background escuro original
-          : "url('/assets/IMAGENS/bg-light.jpg')", // Caminho do background claro original
+          ? "url('/assets/IMAGENS/bg-dark.jpg')"
+          : "url('/assets/IMAGENS/bg-light.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
@@ -87,19 +86,22 @@ const Profile = () => {
         className={`fixed inset-0 bg-black bg-opacity-50 z-40 ${sidebarOpen ? 'block' : 'hidden'}`}
         onClick={closeSidebar}
       ></div>
+      
       {/* Configurações com submenu */}
       <div className="mt-4">
         <a
           href="#"
           onClick={toggleConfig}
-          className="text-white hover:bg-gray-800 px-4 py-2 rounded transition flex justify-between items-center"
+          className={`hover:bg-opacity-20 px-4 py-2 rounded transition flex justify-between items-center ${
+            darkTheme ? 'text-white hover:bg-white' : 'text-gray-900 hover:bg-gray-800'
+          }`}
         >
           Configurações
           <span className={`transform transition-transform ${configOpen ? 'rotate-90' : ''}`}>›</span>
         </a>
         <div className={`ml-4 mt-2 space-y-2 ${configOpen ? 'block' : 'hidden'}`}>
           <div className="flex items-center justify-between px-4 py-2">
-            <span className="text-white">{darkTheme ? "Tema Escuro" : "Tema Claro"}</span>
+            <span className={darkTheme ? "text-white" : "text-gray-900"}>{darkTheme ? "Tema Escuro" : "Tema Claro"}</span>
             <label className="relative inline-flex items-center cursor-pointer">
               <input
                 type="checkbox"
@@ -111,7 +113,7 @@ const Profile = () => {
             </label>
           </div>
           <div className="flex items-center justify-between px-4 py-2">
-            <span className="text-white">Libras</span>
+            <span className={darkTheme ? "text-white" : "text-gray-900"}>Libras</span>
             <label className="relative inline-flex items-center cursor-pointer">
               <input
                 type="checkbox"
@@ -137,7 +139,7 @@ const Profile = () => {
             />
             <label
               htmlFor="profilePictureInput"
-              className="absolute bottom-3 right-3 bg-[rgb(253,77,121)] text-white px-3 py-1 rounded-full text-sm flex items-center cursor-pointer hover:bg-[rgb(220,60,100)] transition"
+              className="absolute bottom-3 right-3 bg-[rgb(253,77,121)] text-white px-3 py-1 rounded-full text-sm flex items-center cursor-pointer hover:bg-[rgb(220,60,100)] transition shadow-md"
             >
               <i className="fas fa-camera mr-1"></i> Alterar
             </label>
@@ -151,9 +153,11 @@ const Profile = () => {
           </div>
 
           <div className="mt-6">
-            <h1 className="text-2xl font-bold">Nome do Usuário</h1>
-            <p className={`mt-1 ${darkTheme ? 'text-gray-400' : 'text-gray-600'}`}>user@conectgamers.com</p>
-            <div className="inline-block bg-[rgb(253,77,121)] text-white px-4 py-1 rounded-full text-sm mt-2">
+            <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[rgb(253,77,121)] to-[rgb(255,160,0)]">
+              Nome do Usuário
+            </h1>
+            <p className={`mt-2 text-lg ${darkTheme ? 'text-gray-300' : 'text-gray-700'}`}>user@conectgamers.com</p>
+            <div className="inline-block bg-gradient-to-r from-[rgb(253,77,121)] to-[rgb(255,160,0)] text-white px-6 py-2 rounded-full text-sm mt-3 shadow-lg">
               Ranking: Ouro
             </div>
           </div>
@@ -162,52 +166,106 @@ const Profile = () => {
         <div className="max-w-2xl mx-auto">
           {/* Seção de Eventos */}
           <section className="mb-12">
-            <h2 className={`text-xl font-semibold mb-6 pb-2 border-b border-[rgb(253,77,121)] flex justify-center items-center ${darkTheme ? 'text-white' : 'text-gray-900'}`}>
-              <i className="fas fa-calendar-alt mr-2"></i> Meus Eventos
+            <h2 className={`text-2xl font-bold mb-6 pb-2 border-b-2 border-[rgb(253,77,121)] flex justify-center items-center ${
+              darkTheme ? 'text-white' : 'text-gray-900'
+            }`}>
+              <i className="fas fa-calendar-alt mr-3 text-[rgb(253,77,121)]"></i> Meus Eventos
             </h2>
             <div className="space-y-4">
-              <div className={`p-4 border rounded-lg ${darkTheme ? 'border-gray-700' : 'border-gray-200'}`}>
-                <h3 className="font-medium">Torneio de Valorant</h3>
-                <p className={`text-sm ${darkTheme ? 'text-gray-400' : 'text-gray-600'}`}>25/05/2025 - Online</p>
+              <div className={`p-5 rounded-lg shadow-md transition-all hover:shadow-lg ${
+                darkTheme 
+                  ? 'bg-gray-800 bg-opacity-80 hover:bg-gray-700' 
+                  : 'bg-white bg-opacity-90 hover:bg-gray-50'
+              }`}>
+                <h3 className="font-bold text-lg">Torneio de Valorant</h3>
+                <div className="flex items-center mt-2">
+                  <i className={`fas fa-calendar-day mr-2 ${
+                    darkTheme ? 'text-gray-400' : 'text-gray-600'
+                  }`}></i>
+                  <p className={`text-sm ${darkTheme ? 'text-gray-300' : 'text-gray-600'}`}>25/05/2025 - Online</p>
+                </div>
+                <div className="mt-3 flex justify-end">
+                  <span className="bg-[rgb(253,77,121)] bg-opacity-20 text-[rgb(253,77,121)] px-3 py-1 rounded-full text-xs font-medium">
+                    Inscrito
+                  </span>
+                </div>
               </div>
-              <div className={`p-4 border rounded-lg ${darkTheme ? 'border-gray-700' : 'border-gray-200'}`}>
-                <h3 className="font-medium">Campeonato de League of Legends</h3>
-                <p className={`text-sm ${darkTheme ? 'text-gray-400' : 'text-gray-600'}`}>02/06/2025 - Online</p>
+              <div className={`p-5 rounded-lg shadow-md transition-all hover:shadow-lg ${
+                darkTheme 
+                  ? 'bg-gray-800 bg-opacity-80 hover:bg-gray-700' 
+                  : 'bg-white bg-opacity-90 hover:bg-gray-50'
+              }`}>
+                <h3 className="font-bold text-lg">Campeonato de League of Legends</h3>
+                <div className="flex items-center mt-2">
+                  <i className={`fas fa-calendar-day mr-2 ${
+                    darkTheme ? 'text-gray-400' : 'text-gray-600'
+                  }`}></i>
+                  <p className={`text-sm ${darkTheme ? 'text-gray-300' : 'text-gray-600'}`}>02/06/2025 - Online</p>
+                </div>
+                <div className="mt-3 flex justify-end">
+                  <span className="bg-[rgb(253,77,121)] bg-opacity-20 text-[rgb(253,77,121)] px-3 py-1 rounded-full text-xs font-medium">
+                    Inscrito
+                  </span>
+                </div>
               </div>
             </div>
           </section>
 
           {/* Seção de Senha */}
-          <section className={`p-6 rounded-lg border border-[rgb(253,77,121)] ${darkTheme ? 'bg-gray-800 bg-opacity-50' : 'bg-gray-100'}`}>
-            <h2 className={`text-xl font-semibold mb-6 pb-2 border-b border-[rgb(253,77,121)] flex justify-center items-center ${darkTheme ? 'text-white' : 'text-gray-900'}`}>
-              <i className="fas fa-lock mr-2"></i> Alterar Senha
+          <section className={`p-8 rounded-xl shadow-lg ${
+            darkTheme 
+              ? 'bg-gray-800 bg-opacity-80 border border-gray-700' 
+              : 'bg-white bg-opacity-95 border border-gray-200'
+          }`}>
+            <h2 className={`text-2xl font-bold mb-6 pb-2 border-b-2 border-[rgb(253,77,121)] flex justify-center items-center ${
+              darkTheme ? 'text-white' : 'text-gray-900'
+            }`}>
+              <i className="fas fa-lock mr-3 text-[rgb(253,77,121)]"></i> Alterar Senha
             </h2>
             <form onSubmit={handlePasswordSubmit}>
-              <div className="mb-4">
-                <label className={`block mb-2 font-medium ${darkTheme ? 'text-white' : 'text-gray-900'}`}>Senha Atual</label>
+              <div className="mb-5">
+                <label className={`block mb-3 font-semibold ${
+                  darkTheme ? 'text-gray-300' : 'text-gray-700'
+                }`}>Senha Atual</label>
                 <input
                   type="password"
-                  className={`w-full p-3 rounded focus:outline-none ${darkTheme ? 'bg-gray-700 border-gray-600 text-white focus:border-[rgb(253,77,121)]' : 'bg-white border-gray-300 text-gray-900 focus:border-[rgb(253,77,121)]'} border`}
+                  className={`w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(253,77,121)] ${
+                    darkTheme 
+                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      : 'bg-white border-gray-300 text-gray-900'
+                  } border`}
                   placeholder="Digite sua senha atual"
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
                 />
               </div>
-              <div className="mb-4">
-                <label className={`block mb-2 font-medium ${darkTheme ? 'text-white' : 'text-gray-900'}`}>Nova Senha</label>
+              <div className="mb-5">
+                <label className={`block mb-3 font-semibold ${
+                  darkTheme ? 'text-gray-300' : 'text-gray-700'
+                }`}>Nova Senha</label>
                 <input
                   type="password"
-                  className={`w-full p-3 rounded focus:outline-none ${darkTheme ? 'bg-gray-700 border-gray-600 text-white focus:border-[rgb(253,77,121)]' : 'bg-white border-gray-300 text-gray-900 focus:border-[rgb(253,77,121)]'} border`}
+                  className={`w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(253,77,121)] ${
+                    darkTheme 
+                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      : 'bg-white border-gray-300 text-gray-900'
+                  } border`}
                   placeholder="Digite a nova senha"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                 />
               </div>
               <div className="mb-6">
-                <label className={`block mb-2 font-medium ${darkTheme ? 'text-white' : 'text-gray-900'}`}>Confirmar Nova Senha</label>
+                <label className={`block mb-3 font-semibold ${
+                  darkTheme ? 'text-gray-300' : 'text-gray-700'
+                }`}>Confirmar Nova Senha</label>
                 <input
                   type="password"
-                  className={`w-full p-3 rounded focus:outline-none ${darkTheme ? 'bg-gray-700 border-gray-600 text-white focus:border-[rgb(253,77,121)]' : 'bg-white border-gray-300 text-gray-900 focus:border-[rgb(253,77,121)]'} border`}
+                  className={`w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(253,77,121)] ${
+                    darkTheme 
+                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      : 'bg-white border-gray-300 text-gray-900'
+                  } border`}
                   placeholder="Confirme a nova senha"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -215,7 +273,7 @@ const Profile = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-[rgb(253,77,121)] hover:bg-[rgb(220,60,100)] text-white py-3 px-4 rounded font-medium transition"
+                className="w-full bg-gradient-to-r from-[rgb(253,77,121)] to-[rgb(255,160,0)] hover:from-[rgb(220,60,100)] hover:to-[rgb(230,140,0)] text-white py-3 px-4 rounded-lg font-bold transition-all shadow-md hover:shadow-lg"
               >
                 Atualizar Senha
               </button>
