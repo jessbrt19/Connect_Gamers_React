@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [configOpen, setConfigOpen] = useState(false);
   const [darkTheme, setDarkTheme] = useState(localStorage.getItem("siteTheme") === "dark" || false);
   const [vlibrasActive, setVlibrasActive] = useState(localStorage.getItem("vlibrasAtivo") === "true" || false);
   const [profileImage, setProfileImage] = useState("https://via.placeholder.com/150");
@@ -31,10 +30,6 @@ const Profile = () => {
 
   const closeSidebar = () => {
     setSidebarOpen(false);
-  };
-
-  const toggleConfig = () => {
-    setConfigOpen(!configOpen);
   };
 
   const handleThemeToggle = () => {
@@ -87,50 +82,10 @@ const Profile = () => {
         onClick={closeSidebar}
       ></div>
       
-      {/* Configurações com submenu */}
-      <div className="mt-4">
-        <a
-          href="#"
-          onClick={toggleConfig}
-          className={`px-4 py-2 rounded transition flex justify-between items-center ${
-            darkTheme ? 'text-gray-200 hover:bg-gray-700' : 'text-gray-800 hover:bg-gray-300'
-          }`}
-        >
-          Configurações
-          <span className={`transform transition-transform ${configOpen ? 'rotate-90' : ''}`}>›</span>
-        </a>
-        <div className={`ml-4 mt-2 space-y-2 ${configOpen ? 'block' : 'hidden'}`}>
-          <div className="flex items-center justify-between px-4 py-2">
-            <span className={darkTheme ? "text-gray-200" : "text-gray-800"}>{darkTheme ? "Tema Escuro" : "Tema Claro"}</span>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                className="sr-only peer"
-                checked={darkTheme}
-                onChange={handleThemeToggle}
-              />
-              <div className="w-12 h-6 bg-gray-400 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[rgb(253,77,121)]"></div>
-            </label>
-          </div>
-          <div className="flex items-center justify-between px-4 py-2">
-            <span className={darkTheme ? "text-gray-200" : "text-gray-800"}>Libras</span>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                className="sr-only peer"
-                checked={vlibrasActive}
-                onChange={handleVlibrasToggle}
-              />
-              <div className="w-12 h-6 bg-gray-400 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[rgb(253,77,121)]"></div>
-            </label>
-          </div>
-        </div>
-      </div>
-
       {/* Container principal - Cinza escuro transparente */}
       <div 
         className="container mx-auto px-4 pt-24 pb-16 max-w-4xl 
-        bg-gray-800/70  // Notação mais moderna para opacidade
+        bg-gray-800/70
         rounded-xl shadow-2xl my-8 border border-gray-600
         backdrop-blur-sm"
       >
