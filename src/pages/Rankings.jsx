@@ -1,52 +1,73 @@
-
 import React, { useState } from 'react';
 
 const Rankings = () => {
-  const [modoCompetitivo, setModoCompetitivo] = useState(false);
+  // Estado booleano: 0 = falso (mostrar todos), 1 = verdadeiro (somente competitivos)
+  const [mostrarCompetitivos, setMostrarCompetitivos] = useState(false);
 
   // Lista de jogadores simulada
-  const jogadores = [
+  const listaJogadores = [
     { nome: "Ana", pontos: 1200, competitivo: true },
     { nome: "Carlos", pontos: 850, competitivo: false },
     { nome: "João", pontos: 950, competitivo: true },
     { nome: "Lúcia", pontos: 700, competitivo: false },
   ];
 
-  // Filtro com base em decisão binária
-  const jogadoresFiltrados = modoCompetitivo
-    ? jogadores.filter(jogador => jogador.competitivo)
-    : jogadores;
+  // Filtra com base no valor booleano
+  const jogadoresExibidos = mostrarCompetitivos
+    ? listaJogadores.filter(jogador => jogador.competitivo)
+    : listaJogadores;
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Ranking de Jogadores</h2>
+    <div className="max-w-2xl mx-auto p-6">
+      <h1 className="text-2xl font-bold text-center mb-6">Ranking de Jogadores</h1>
 
-      <label className="flex items-center mb-4">
-        <input
-          type="checkbox"
-          checked={modoCompetitivo}
-          onChange={() => setModoCompetitivo(!modoCompetitivo)}
-          className="mr-2"
-        />
-        Mostrar apenas jogadores em modo competitivo
-      </label>
+      {/* Switch booleano */}
+      <div className="flex items-center justify-center mb-6">
+        <label className="flex items-center space-x-2 text-lg">
+          <input
+            type="checkbox"
+            checked={mostrarCompetitivos}
+            onChange={() => setMostrarCompetitivos(prev => !prev)}
+            className="w-5 h-5"
+          />
+          <span>Mostrar apenas jogadores competitivos</span>
+        </label>
+      </div>
 
-      <ul className="space-y-2">
-        {jogadoresFiltrados.map((jogador, index) => (
-          <li key={index} className="border p-2 rounded shadow">
-            {jogador.nome} - {jogador.pontos} pontos
+      {/* Lista de jogadores */}
+      <ul className="space-y-4">
+        {jogadoresExibidos.map((jogador, index) => (
+          <li
+            key={index}
+            className="p-4 border rounded-lg shadow flex justify-between items-center"
+          >
+            <span className="font-medium">{jogador.nome}</span>
+            <span className="text-gray-600">{jogador.pontos} pontos</span>
           </li>
         ))}
       </ul>
 
-      {/* Tabela Verdade (exibição de decisão lógica) */}
-      <div className="mt-6 p-4 border rounded bg-gray-100">
-        <h4 className="font-semibold">Tabela Verdade:</h4>
-        <p>
-          {modoCompetitivo
-            ? "modoCompetitivo = 1 ➜ Mostrar só jogadores competitivos"
-            : "modoCompetitivo = 0 ➜ Mostrar todos os jogadores"}
-        </p>
+      {/* Simulação de Tabela-Verdade */}
+      <div className="mt-10 p-4 bg-gray-100 border rounded-lg">
+        <h2 className="text-lg font-semibold mb-2">Tabela Verdade – Decisão Binária</h2>
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="p-2 border">mostrarCompetitivos</th>
+              <th className="p-2 border">Resultado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="p-2 border text-center">0 (false)</td>
+              <td className="p-2 border">Exibe todos os jogadores</td>
+            </tr>
+            <tr>
+              <td className="p-2 border text-center">1 (true)</td>
+              <td className="p-2 border">Exibe apenas jogadores competitivos</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );
