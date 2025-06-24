@@ -73,8 +73,8 @@ const Profile = () => {
       className={`min-h-screen flex flex-col ${darkTheme ? 'text-white' : 'text-gray-900'}`}
       style={{
         backgroundImage: darkTheme
-          ? "url('/assets/IMAGENS/bg-dark.jpg')" // coloque o caminho da sua imagem escura
-          : "url('/assets/IMAGENS/bg-light.jpg')", // coloque o caminho da sua imagem clara
+          ? "url('/assets/IMAGENS/bg-dark.jpg')" // Caminho do background escuro original
+          : "url('/assets/IMAGENS/bg-light.jpg')", // Caminho do background claro original
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
