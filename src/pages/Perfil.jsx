@@ -66,7 +66,7 @@ const Profile = () => {
     setCurrentPassword("");
     setNewPassword("");
     setConfirmPassword("");
-    
+
   };
 
   return (
