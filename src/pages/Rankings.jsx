@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
 const Rankings = () => {
-  // Estado booleano: 0 = falso (mostrar todos), 1 = verdadeiro (somente competitivos)
   const [mostrarCompetitivos, setMostrarCompetitivos] = useState(false);
+  const [jogadorAtivo, setJogadorAtivo] = useState(null); // Para controlar o jogador aberto
 
-  // Lista de jogadores simulada
   const listaJogadores = [
     { nome: "Ana", pontos: 1200, competitivo: true },
     { nome: "Carlos", pontos: 850, competitivo: false },
@@ -12,26 +11,33 @@ const Rankings = () => {
     { nome: "Lúcia", pontos: 700, competitivo: false },
   ];
 
-  // Filtra com base no valor booleano
   const jogadoresExibidos = mostrarCompetitivos
     ? listaJogadores.filter(jogador => jogador.competitivo)
     : listaJogadores;
 
-  return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-bold text-center mb-6">Ranking de Jogadores</h1>
+  const alternarJogador = (index) => {
+    setJogadorAtivo(jogadorAtivo === index ? null : index);
+  };
 
-      {/* Switch booleano */}
-      <div className="flex items-center justify-center mb-6">
-        <label className="flex items-center space-x-2 text-lg">
-          <input
-            type="checkbox"
-            checked={mostrarCompetitivos}
-            onChange={() => setMostrarCompetitivos(prev => !prev)}
-            className="w-5 h-5"
-          />
-          <span>Mostrar apenas jogadores competitivos</span>
-        </label>
+  return (
+    <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-xl">
+      {/* Título principal */}
+      <h1 className="text-4xl font-extrabold text-center text-indigo-700 mb-8">
+        🏆 Painel de Ranking - Connect Gamers
+      </h1>
+
+      {/* Toggle com estilo */}
+      <div className="flex justify-center items-center mb-6">
+        <button
+          onClick={() => setMostrarCompetitivos(prev => !prev)}
+          className={`px-6 py-2 text-white font-semibold rounded-full shadow transition duration-300 ${
+            mostrarCompetitivos ? 'bg-purple-600 hover:bg-purple-700' : 'bg-gray-500 hover:bg-gray-600'
+          }`}
+        >
+          {mostrarCompetitivos
+            ? 'Exibindo: Apenas Competitivos'
+            : 'Exibindo: Todos os Jogadores'}
+        </button>
       </div>
 
       {/* Lista de jogadores */}
@@ -39,32 +45,43 @@ const Rankings = () => {
         {jogadoresExibidos.map((jogador, index) => (
           <li
             key={index}
-            className="p-4 border rounded-lg shadow flex justify-between items-center"
+            className="border border-gray-300 rounded-lg p-4 shadow-md hover:shadow-lg transition duration-200 bg-gray-50"
           >
-            <span className="font-medium">{jogador.nome}</span>
-            <span className="text-gray-600">{jogador.pontos} pontos</span>
+            <button
+              className="text-indigo-800 font-bold text-lg hover:underline w-full text-left"
+              onClick={() => alternarJogador(index)}
+            >
+              {jogador.nome}
+            </button>
+
+            {/* Container com os pontos (toggle) */}
+            {jogadorAtivo === index && (
+              <div className="mt-2 text-gray-700">
+                Pontuação: <span className="font-semibold">{jogador.pontos}</span>
+              </div>
+            )}
           </li>
         ))}
       </ul>
 
-      {/* Simulação de Tabela-Verdade */}
-      <div className="mt-10 p-4 bg-gray-100 border rounded-lg">
-        <h2 className="text-lg font-semibold mb-2">Tabela Verdade – Decisão Binária</h2>
-        <table className="w-full text-left border-collapse">
+      {/* Tabela Verdade para lógica binária */}
+      <div className="mt-10 p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
+        <h2 className="text-lg font-bold text-indigo-800 mb-2">📊 Tabela Verdade – Filtro Competitivo</h2>
+        <table className="w-full text-left border-collapse text-sm">
           <thead>
-            <tr className="bg-gray-200">
-              <th className="p-2 border">mostrarCompetitivos</th>
-              <th className="p-2 border">Resultado</th>
+            <tr className="bg-indigo-100 text-indigo-900">
+              <th className="p-2 border border-indigo-200">mostrarCompetitivos</th>
+              <th className="p-2 border border-indigo-200">Comportamento</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td className="p-2 border text-center">0 (false)</td>
-              <td className="p-2 border">Exibe todos os jogadores</td>
+              <td className="p-2 border border-indigo-200 text-center">0 (false)</td>
+              <td className="p-2 border border-indigo-200">Exibe todos os jogadores</td>
             </tr>
             <tr>
-              <td className="p-2 border text-center">1 (true)</td>
-              <td className="p-2 border">Exibe apenas jogadores competitivos</td>
+              <td className="p-2 border border-indigo-200 text-center">1 (true)</td>
+              <td className="p-2 border border-indigo-200">Exibe apenas jogadores competitivos</td>
             </tr>
           </tbody>
         </table>
@@ -74,3 +91,4 @@ const Rankings = () => {
 };
 
 export default Rankings;
+
