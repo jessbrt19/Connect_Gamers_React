@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const Rankings = () => {
   const [mostrarCompetitivos, setMostrarCompetitivos] = useState(false);
-  const [jogadorAtivo, setJogadorAtivo] = useState(null); // Para controlar o jogador aberto
+  const [jogadorAtivo, setJogadorAtivo] = useState(null);
 
   const listaJogadores = [
     { nome: "Ana", pontos: 1200, competitivo: true },
@@ -12,7 +12,7 @@ const Rankings = () => {
   ];
 
   const jogadoresExibidos = mostrarCompetitivos
-    ? listaJogadores.filter(jogador => jogador.competitivo)
+    ? listaJogadores.filter(j => j.competitivo)
     : listaJogadores;
 
   const alternarJogador = (index) => {
@@ -20,18 +20,20 @@ const Rankings = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-xl">
+    <div className="max-w-3xl mx-auto px-4 py-8">
       {/* Título principal */}
-      <h1 className="text-4xl font-extrabold text-center text-indigo-700 mb-8">
-        🏆 Painel de Ranking - Connect Gamers
+      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+        Ranking de Jogadores
       </h1>
 
-      {/* Toggle com estilo */}
-      <div className="flex justify-center items-center mb-6">
+      {/* Botão de exibir competitivos */}
+      <div className="flex justify-center mb-6">
         <button
           onClick={() => setMostrarCompetitivos(prev => !prev)}
-          className={`px-6 py-2 text-white font-semibold rounded-full shadow transition duration-300 ${
-            mostrarCompetitivos ? 'bg-purple-600 hover:bg-purple-700' : 'bg-gray-500 hover:bg-gray-600'
+          className={`px-6 py-2 font-semibold rounded-full transition duration-300 text-sm ${
+            mostrarCompetitivos
+              ? 'bg-gray-800 text-white hover:bg-gray-700'
+              : 'bg-gray-300 text-gray-800 hover:bg-gray-400'
           }`}
         >
           {mostrarCompetitivos
@@ -41,54 +43,29 @@ const Rankings = () => {
       </div>
 
       {/* Lista de jogadores */}
-      <ul className="space-y-4">
+      <ul className="space-y-3">
         {jogadoresExibidos.map((jogador, index) => (
           <li
             key={index}
-            className="border border-gray-300 rounded-lg p-4 shadow-md hover:shadow-lg transition duration-200 bg-gray-50"
+            className="border border-gray-300 rounded-lg px-4 py-3 bg-gray-100 hover:bg-gray-200 transition duration-150"
           >
             <button
-              className="text-indigo-800 font-bold text-lg hover:underline w-full text-left"
+              className="w-full text-left text-gray-800 font-medium text-lg hover:underline"
               onClick={() => alternarJogador(index)}
             >
               {jogador.nome}
             </button>
 
-            {/* Container com os pontos (toggle) */}
             {jogadorAtivo === index && (
-              <div className="mt-2 text-gray-700">
+              <div className="mt-1 text-gray-600 text-sm">
                 Pontuação: <span className="font-semibold">{jogador.pontos}</span>
               </div>
             )}
           </li>
         ))}
       </ul>
-
-      {/* Tabela Verdade para lógica binária */}
-      <div className="mt-10 p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
-        <h2 className="text-lg font-bold text-indigo-800 mb-2">📊 Tabela Verdade – Filtro Competitivo</h2>
-        <table className="w-full text-left border-collapse text-sm">
-          <thead>
-            <tr className="bg-indigo-100 text-indigo-900">
-              <th className="p-2 border border-indigo-200">mostrarCompetitivos</th>
-              <th className="p-2 border border-indigo-200">Comportamento</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="p-2 border border-indigo-200 text-center">0 (false)</td>
-              <td className="p-2 border border-indigo-200">Exibe todos os jogadores</td>
-            </tr>
-            <tr>
-              <td className="p-2 border border-indigo-200 text-center">1 (true)</td>
-              <td className="p-2 border border-indigo-200">Exibe apenas jogadores competitivos</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
   );
 };
 
 export default Rankings;
-
