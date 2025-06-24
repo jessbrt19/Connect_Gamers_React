@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const FAQ = () => {
+const Profile = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [configOpen, setConfigOpen] = useState(false);
   const [darkTheme, setDarkTheme] = useState(localStorage.getItem("siteTheme") === "dark" || false);
   const [vlibrasActive, setVlibrasActive] = useState(localStorage.getItem("vlibrasAtivo") === "true" || false);
-  const [rating, setRating] = useState(0);
-  const [feedback, setFeedback] = useState("");
+  const [profileImage, setProfileImage] = useState("https://via.placeholder.com/150");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,164 +45,216 @@ const FAQ = () => {
     setVlibrasActive(!vlibrasActive);
   };
 
-  const handleRatingChange = (value) => {
-    setRating(value);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setProfileImage(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
-  const handleFeedbackSubmit = (e) => {
+  const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    console.log("Feedback enviado:", { rating, feedback });
-    alert("Obrigado pelo seu feedback!");
-    setRating(0);
-    setFeedback("");
+    if (newPassword !== confirmPassword) {
+      alert("As senhas não coincidem!");
+      return;
+    }
+    alert("Senha alterada com sucesso!");
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
   };
 
   return (
-    <div className={`min-h-screen flex flex-col ${darkTheme ? 'bg-black text-white' : 'bg-white text-gray-900'}`}>
+    <div
+      className={`min-h-screen flex flex-col ${darkTheme ? 'text-gray-200' : 'text-gray-800'}`}
+      style={{
+        backgroundImage: darkTheme
+          ? "url('/assets/IMAGENS/bg-dark.jpg')"
+          : "url('/assets/IMAGENS/bg-light.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        transition: 'background-image 0.5s'
+      }}
+    >
       {/* Overlay */}
-      <div 
-        className={`fixed inset-0 bg-black bg-opacity-50 z-40 ${sidebarOpen ? 'block' : 'hidden'}`} 
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-50 z-40 ${sidebarOpen ? 'block' : 'hidden'}`}
         onClick={closeSidebar}
       ></div>
-
-      {/* Sidebar */}
-      <div className={`fixed h-full w-0 top-0 left-0 bg-black overflow-x-hidden transition-all duration-300 pt-16 z-50 ${sidebarOpen ? 'w-64' : ''}`}>
-        <div className="flex flex-col space-y-2 p-4">
-          <a href="/" className="text-white hover:bg-gray-800 px-4 py-2 rounded transition">Home</a>
-          <a href="/eventos" className="text-white hover:bg-gray-800 px-4 py-2 rounded transition">Jogos e Eventos</a>
-          <a href="/cadastro" className="text-white hover:bg-gray-800 px-4 py-2 rounded transition">Inscreva-se</a>
-          <a href="/rankings" className="text-white hover:bg-gray-800 px-4 py-2 rounded transition">Rankings</a>
-          <a href="/faq" className="text-white hover:bg-gray-800 px-4 py-2 rounded transition">FAQ</a>
-          <a href="/pesquisa" className="text-white hover:bg-gray-800 px-4 py-2 rounded transition">Saiba mais</a>
-
-          {/* Configurações com submenu */}
-          <div className="configuracoes mt-4">
-            <a href="#" onClick={toggleConfig} className="text-white hover:bg-gray-800 px-4 py-2 rounded transition flex justify-between items-center">
-              Configurações
-              <span className={`transform transition-transform ${configOpen ? 'rotate-90' : ''}`}>›</span>
-            </a>
-            <div className={`ml-4 mt-2 space-y-2 ${configOpen ? 'block' : 'hidden'}`}>
-              <div className="flex items-center justify-between px-4 py-2">
-                <span className="text-white">{darkTheme ? "Tema Escuro" : "Tema Claro"}</span>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input 
-                    type="checkbox" 
-                    className="sr-only peer" 
-                    checked={darkTheme}
-                    onChange={handleThemeToggle}
-                  />
-                  <div className="w-12 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
-                </label>
-              </div>
-              <div className="flex items-center justify-between px-4 py-2">
-                <span className="text-white">Libras</span>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input 
-                    type="checkbox" 
-                    className="sr-only peer" 
-                    checked={vlibrasActive}
-                    onChange={handleVlibrasToggle}
-                  />
-                  <div className="w-12 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
-                </label>
-              </div>
-            </div>
+      
+      {/* Configurações com submenu */}
+      <div className="mt-4">
+        <a
+          href="#"
+          onClick={toggleConfig}
+          className={`px-4 py-2 rounded transition flex justify-between items-center ${
+            darkTheme ? 'text-gray-200 hover:bg-gray-700' : 'text-gray-800 hover:bg-gray-300'
+          }`}
+        >
+          Configurações
+          <span className={`transform transition-transform ${configOpen ? 'rotate-90' : ''}`}>›</span>
+        </a>
+        <div className={`ml-4 mt-2 space-y-2 ${configOpen ? 'block' : 'hidden'}`}>
+          <div className="flex items-center justify-between px-4 py-2">
+            <span className={darkTheme ? "text-gray-200" : "text-gray-800"}>{darkTheme ? "Tema Escuro" : "Tema Claro"}</span>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                className="sr-only peer"
+                checked={darkTheme}
+                onChange={handleThemeToggle}
+              />
+              <div className="w-12 h-6 bg-gray-400 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[rgb(253,77,121)]"></div>
+            </label>
+          </div>
+          <div className="flex items-center justify-between px-4 py-2">
+            <span className={darkTheme ? "text-gray-200" : "text-gray-800"}>Libras</span>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                className="sr-only peer"
+                checked={vlibrasActive}
+                onChange={handleVlibrasToggle}
+              />
+              <div className="w-12 h-6 bg-gray-400 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[rgb(253,77,121)]"></div>
+            </label>
           </div>
         </div>
       </div>
 
-      {/* Navbar */}
-      <nav className={`fixed top-0 w-full p-2 z-30 ${darkTheme ? 'bg-black' : 'bg-gray-100'}`}>
-        <div className="container-fluid flex justify-between items-center">
-          <div className="flex items-center">
-            <div className="cursor-pointer mr-4" onClick={toggleSidebar}>
-              <img src="../assets/IMAGENS/lista.png" alt="Menu" className="w-10" />
-            </div>
-            <a className="navbar-brand" href="/">
-              <img 
-                src={darkTheme ? 
-                  "../assets/IMAGENS/Connect_Gamers_logo_OFICIAL-removebg-preview.png" : 
-                  "../assets/IMAGENS/logo - tema claro.png"} 
-                alt="logo" 
-                className="w-48 ml-4" 
-              />
-            </a>
-          </div>
-
-          <a href="/login" className="mr-4">
-            <img 
-              src={darkTheme ? 
-                "../assets/IMAGENS/perfil.png" : 
-                "../assets/IMAGENS/perfil_preto.png"} 
-              alt="Perfil" 
-              className="w-10" 
+      {/* Container principal escuro transparente */}
+      <div className={`container mx-auto px-4 pt-24 pb-16 max-w-4xl ${
+        darkTheme ? 'bg-gray-800 bg-opacity-80' : 'bg-gray-700 bg-opacity-80'
+      } rounded-xl shadow-2xl my-8`}>
+        {/* Cabeçalho do Perfil */}
+        <div className="text-center mb-12">
+          <div className="relative inline-block">
+            <img
+              src={profileImage}
+              alt="Foto do perfil"
+              className="w-44 h-44 rounded-full border-4 border-[rgb(253,77,121)] object-cover shadow-lg mx-auto"
             />
-          </a>
-        </div>
-      </nav>
-
-      {/* Conteúdo Principal */}
-      <section className={`flex-grow flex justify-center items-center ${darkTheme ? 'bg-black' : 'bg-gray-100'} pt-16 pb-16`}>
-        <div className={`p-6 rounded-lg shadow-lg ${darkTheme ? 'bg-gray-800' : 'bg-beige'} w-80`}>
-          <h2 className="text-xl font-bold mb-4 text-center">Seu Feedback é importante para nós!</h2>
-          <form onSubmit={handleFeedbackSubmit}>
-            <div className="flex justify-center space-x-1 mb-4">
-              {[5, 4, 3, 2, 1].map((value) => (
-                <React.Fragment key={value}>
-                  <input 
-                    type="radio" 
-                    id={`star${value}`} 
-                    name="rating" 
-                    value={value} 
-                    className="hidden"
-                    checked={rating === value}
-                    onChange={() => handleRatingChange(value)}
-                  />
-                  <label 
-                    htmlFor={`star${value}`} 
-                    className={`text-2xl cursor-pointer ${rating >= value ? 'text-yellow-400' : 'text-gray-300'} hover:text-yellow-400`}
-                  >
-                    ★
-                  </label>
-                </React.Fragment>
-              ))}
-            </div>
-            <textarea 
-              className="w-full p-2 border rounded mb-4"
-              placeholder="Deixe seu Feedback"
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-              rows={4}
-            ></textarea>
-            <button 
-              type="submit" 
-              className="w-full bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded transition"
+            <label
+              htmlFor="profilePictureInput"
+              className="absolute bottom-3 right-3 bg-[rgb(253,77,121)] text-white px-3 py-1 rounded-full text-sm flex items-center cursor-pointer hover:bg-[rgb(220,60,100)] transition shadow-md"
             >
-              Enviar Feedback
-            </button>
-          </form>
-        </div>
-      </section>
+              <i className="fas fa-camera mr-1"></i> Alterar
+            </label>
+            <input
+              type="file"
+              id="profilePictureInput"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageChange}
+            />
+          </div>
 
-      {/* Footer */}
-      <footer className={`py-4 text-center ${darkTheme ? 'bg-gray-900 text-white' : 'bg-gray-100 text-black'} border-t-2 border-primary shadow-inner`}>
-        <p>© 2025 Connect Gamers. Todos os direitos reservados.</p>
-        <p>Desenvolvido por: Ana Gonçalves, Jessica Brito, Mariana Albano, Neemias Silva, Vinícius Gonzales.</p>
-      </footer>
-
-      {/* Widget VLibras */}
-      {vlibrasActive && (
-        <div id="vlibras">
-          <div vw className="enabled">
-            <div vw-access-button className="active"></div>
-            <div vw-plugin-wrapper>
-              <div className="vw-plugin-top-wrapper"></div>
+          <div className="mt-6">
+            <h1 className="text-3xl font-bold text-gray-100">
+              Nome do Usuário
+            </h1>
+            <p className={`mt-2 text-lg ${darkTheme ? 'text-gray-300' : 'text-gray-400'}`}>user@conectgamers.com</p>
+            <div className="inline-block bg-[rgb(253,77,121)] text-white px-6 py-2 rounded-full text-sm mt-3 shadow-lg">
+              Ranking: Ouro
             </div>
           </div>
         </div>
-      )}
+
+        <div className="max-w-2xl mx-auto">
+          {/* Seção de Eventos */}
+          <section className="mb-12">
+            <h2 className={`text-2xl font-bold mb-6 pb-2 border-b-2 border-[rgb(253,77,121)] flex justify-center items-center text-gray-100`}>
+              <i className="fas fa-calendar-alt mr-3 text-[rgb(253,77,121)]"></i> Meus Eventos
+            </h2>
+            <div className="space-y-4">
+              <div className={`p-5 rounded-lg shadow-md transition-all hover:shadow-lg ${
+                darkTheme 
+                  ? 'bg-gray-700 bg-opacity-90 hover:bg-gray-600' 
+                  : 'bg-gray-600 bg-opacity-90 hover:bg-gray-500'
+              }`}>
+                <h3 className="font-bold text-lg text-gray-100">Torneio de Valorant</h3>
+                <div className="flex items-center mt-2">
+                  <i className={`fas fa-calendar-day mr-2 text-gray-400`}></i>
+                  <p className={`text-sm text-gray-300`}>25/05/2025 - Online</p>
+                </div>
+                <div className="mt-3 flex justify-end">
+                  <span className="bg-[rgb(253,77,121)] bg-opacity-20 text-[rgb(253,77,121)] px-3 py-1 rounded-full text-xs font-medium">
+                    Inscrito
+                  </span>
+                </div>
+              </div>
+              <div className={`p-5 rounded-lg shadow-md transition-all hover:shadow-lg ${
+                darkTheme 
+                  ? 'bg-gray-700 bg-opacity-90 hover:bg-gray-600' 
+                  : 'bg-gray-600 bg-opacity-90 hover:bg-gray-500'
+              }`}>
+                <h3 className="font-bold text-lg text-gray-100">Campeonato de League of Legends</h3>
+                <div className="flex items-center mt-2">
+                  <i className={`fas fa-calendar-day mr-2 text-gray-400`}></i>
+                  <p className={`text-sm text-gray-300`}>02/06/2025 - Online</p>
+                </div>
+                <div className="mt-3 flex justify-end">
+                  <span className="bg-[rgb(253,77,121)] bg-opacity-20 text-[rgb(253,77,121)] px-3 py-1 rounded-full text-xs font-medium">
+                    Inscrito
+                  </span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Seção de Senha */}
+          <section className={`p-8 rounded-xl shadow-lg bg-gray-700 bg-opacity-90 border border-gray-600`}>
+            <h2 className={`text-2xl font-bold mb-6 pb-2 border-b-2 border-[rgb(253,77,121)] flex justify-center items-center text-gray-100`}>
+              <i className="fas fa-lock mr-3 text-[rgb(253,77,121)]"></i> Alterar Senha
+            </h2>
+            <form onSubmit={handlePasswordSubmit}>
+              <div className="mb-5">
+                <label className={`block mb-3 font-semibold text-gray-200`}>Senha Atual</label>
+                <input
+                  type="password"
+                  className={`w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(253,77,121)] bg-gray-600 border-gray-500 text-white border`}
+                  placeholder="Digite sua senha atual"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                />
+              </div>
+              <div className="mb-5">
+                <label className={`block mb-3 font-semibold text-gray-200`}>Nova Senha</label>
+                <input
+                  type="password"
+                  className={`w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(253,77,121)] bg-gray-600 border-gray-500 text-white border`}
+                  placeholder="Digite a nova senha"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </div>
+              <div className="mb-6">
+                <label className={`block mb-3 font-semibold text-gray-200`}>Confirmar Nova Senha</label>
+                <input
+                  type="password"
+                  className={`w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(253,77,121)] bg-gray-600 border-gray-500 text-white border`}
+                  placeholder="Confirme a nova senha"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-[rgb(253,77,121)] hover:bg-[rgb(220,60,100)] text-white py-3 px-4 rounded-lg font-bold transition-all shadow-md hover:shadow-lg"
+              >
+                Atualizar Senha
+              </button>
+            </form>
+          </section>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default FAQ;
+export default Profile;
