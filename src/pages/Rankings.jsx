@@ -25,7 +25,6 @@ const Rankings = () => {
         Ranking de Jogadores
       </h1>
 
-      {/* Botão de filtro */}
       <div className="flex justify-center mb-6">
         <button
           onClick={() => setMostrarCompetitivos(prev => !prev)}
@@ -41,7 +40,6 @@ const Rankings = () => {
         </button>
       </div>
 
-      {/* Lista de jogadores */}
       <ul className="space-y-3">
         {jogadoresExibidos.map((jogador, index) => (
           <li
@@ -60,12 +58,11 @@ const Rankings = () => {
                 <p><strong>Pontuação:</strong> {jogador.pontos}</p>
                 <p><strong>K/D Ratio:</strong> {jogador.kd}</p>
 
-                {/* Gráfico simples */}
                 <div className="space-y-1">
                   <p className="text-xs text-gray-500">Desempenho Visual (baseado na pontuação)</p>
                   <div className="w-full bg-gray-300 h-4 rounded overflow-hidden">
                     <div
-                      className="h-full bg-indigo-600 transition-all duration-500"
+                      className="h-full bg-pink-500 transition-all duration-500"
                       style={{ width: `${(jogador.pontos / 1500) * 100}%` }}
                     ></div>
                   </div>
@@ -80,4 +77,5 @@ const Rankings = () => {
 };
 
 export default Rankings;
+
 
