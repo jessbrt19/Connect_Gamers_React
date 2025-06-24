@@ -25,20 +25,21 @@ const FAQ = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      {/* Container do Feedback */}
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-8">
-        <h2 className="text-2xl font-bold mb-6 text-center">Avalie sua experiência</h2>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
+      {/* Conteúdo do Feedback (sem container branco) */}
+      <div className="w-full max-w-xl"> {/* Aumentado para max-w-xl */}
+        <h2 className="text-3xl font-bold mb-8 text-center">Seu Feedback</h2>
         
-        <form onSubmit={handleFeedbackSubmit} className="space-y-6">
+        <form onSubmit={handleFeedbackSubmit} className="space-y-8">
           <div className="text-center">
-            <div className="flex justify-center space-x-2 mb-2">
+            <p className="mb-4 text-xl">Como você avalia sua experiência?</p>
+            <div className="flex justify-center space-x-3 mb-4">
               {[1, 2, 3, 4, 5].map((value) => (
                 <button
                   type="button"
                   key={value}
-                  className={`text-3xl cursor-pointer transition-colors ${
-                    (hoverRating || rating) >= value ? 'text-yellow-400' : 'text-gray-300'
+                  className={`text-4xl cursor-pointer transition-colors ${
+                    (hoverRating || rating) >= value ? 'text-yellow-400' : 'text-gray-400'
                   }`}
                   onClick={() => handleRatingChange(value)}
                   onMouseOver={() => handleMouseOver(value)}
@@ -48,24 +49,21 @@ const FAQ = () => {
                 </button>
               ))}
             </div>
-            <p className="text-sm text-gray-500">
-              {rating ? `Avaliado com ${rating} estrela${rating > 1 ? 's' : ''}` : 'Selecione uma nota'}
-            </p>
           </div>
 
           <textarea 
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="w-full p-4 text-lg border-0 rounded-lg focus:ring-2 focus:ring-pink-500"
             placeholder="Deixe seu comentário..."
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
-            rows={4}
+            rows={6}
           ></textarea>
 
           <button 
             type="submit" 
-            className="w-full bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded-lg transition-colors"
+            className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 px-6 rounded-lg text-lg font-medium"
           >
-            Enviar Avaliação
+            ENVIAR AVALIAÇÃO
           </button>
         </form>
       </div>
