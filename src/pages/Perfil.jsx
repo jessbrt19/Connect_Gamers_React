@@ -69,7 +69,18 @@ const Profile = () => {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col ${darkTheme ? 'bg-black text-white' : 'bg-white text-gray-900'}`}>
+    <div
+      className={`min-h-screen flex flex-col ${darkTheme ? 'text-white' : 'text-gray-900'}`}
+      style={{
+        backgroundImage: darkTheme
+          ? "url('/assets/IMAGENS/bg-dark.jpg')" // coloque o caminho da sua imagem escura
+          : "url('/assets/IMAGENS/bg-light.jpg')", // coloque o caminho da sua imagem clara
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        transition: 'background-image 0.5s'
+      }}
+    >
       {/* Overlay */}
       <div
         className={`fixed inset-0 bg-black bg-opacity-50 z-40 ${sidebarOpen ? 'block' : 'hidden'}`}
