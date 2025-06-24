@@ -129,10 +129,10 @@ const Profile = () => {
 
       {/* Container principal - Cor diferente do fundo */}
       <div className={`container mx-auto px-4 pt-24 pb-16 max-w-4xl ${
-        darkTheme ? 'bg-[#2a2a3a]' : 'bg-[#e0e0eb]'
+        darkTheme ? 'bg-gray-800 bg-opacity-80' : 'bg-gray-200 bg-opacity-80'
       } rounded-xl shadow-2xl my-8 border ${
         darkTheme ? 'border-gray-600' : 'border-gray-400'
-      }`}>
+      } backdrop-blur-sm`}>
         {/* Cabeçalho do Perfil */}
         <div className="text-center mb-12">
           <div className="relative inline-block">
@@ -186,8 +186,8 @@ const Profile = () => {
             <div className="space-y-4">
               <div className={`p-5 rounded-lg shadow-md transition-all hover:shadow-lg ${
                 darkTheme 
-                  ? 'bg-[#3a3a4a] hover:bg-[#4a4a5a]' 
-                  : 'bg-[#f0f0f5] hover:bg-[#e0e0eb]'
+                  ? 'bg-gray-700 bg-opacity-70 hover:bg-gray-700' 
+                  : 'bg-gray-100 bg-opacity-70 hover:bg-gray-200'
               }`}>
                 <h3 className={`font-bold text-lg ${
                   darkTheme ? 'text-gray-100' : 'text-gray-800'
@@ -208,8 +208,8 @@ const Profile = () => {
               </div>
               <div className={`p-5 rounded-lg shadow-md transition-all hover:shadow-lg ${
                 darkTheme 
-                  ? 'bg-[#3a3a4a] hover:bg-[#4a4a5a]' 
-                  : 'bg-[#f0f0f5] hover:bg-[#e0e0eb]'
+                  ? 'bg-gray-700 bg-opacity-70 hover:bg-gray-700' 
+                  : 'bg-gray-100 bg-opacity-70 hover:bg-gray-200'
               }`}>
                 <h3 className={`font-bold text-lg ${
                   darkTheme ? 'text-gray-100' : 'text-gray-800'
@@ -234,8 +234,8 @@ const Profile = () => {
           {/* Seção de Senha */}
           <section className={`p-8 rounded-xl shadow-lg ${
             darkTheme 
-              ? 'bg-[#3a3a4a] border border-gray-600' 
-              : 'bg-[#f0f0f5] border border-gray-400'
+              ? 'bg-gray-700 bg-opacity-70 border border-gray-600' 
+              : 'bg-gray-100 bg-opacity-70 border border-gray-400'
           }`}>
             <h2 className={`text-2xl font-bold mb-6 pb-2 border-b-2 border-[rgb(253,77,121)] flex justify-center items-center ${
               darkTheme ? 'text-gray-100' : 'text-gray-800'
@@ -251,7 +251,7 @@ const Profile = () => {
                   type="password"
                   className={`w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(253,77,121)] ${
                     darkTheme 
-                      ? 'bg-[#4a4a5a] border-gray-500 text-white' 
+                      ? 'bg-gray-600 border-gray-500 text-white' 
                       : 'bg-white border-gray-300 text-gray-900'
                   } border`}
                   placeholder="Digite sua senha atual"
@@ -267,7 +267,7 @@ const Profile = () => {
                   type="password"
                   className={`w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(253,77,121)] ${
                     darkTheme 
-                      ? 'bg-[#4a4a5a] border-gray-500 text-white' 
+                      ? 'bg-gray-600 border-gray-500 text-white' 
                       : 'bg-white border-gray-300 text-gray-900'
                   } border`}
                   placeholder="Digite a nova senha"
@@ -283,7 +283,7 @@ const Profile = () => {
                   type="password"
                   className={`w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(253,77,121)] ${
                     darkTheme 
-                      ? 'bg-[#4a4a5a] border-gray-500 text-white' 
+                      ? 'bg-gray-600 border-gray-500 text-white' 
                       : 'bg-white border-gray-300 text-gray-900'
                   } border`}
                   placeholder="Confirme a nova senha"
